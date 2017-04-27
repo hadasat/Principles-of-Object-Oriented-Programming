@@ -1,6 +1,6 @@
 import java.lang.Iterable;
 
-public interface Set extends Iterable{
+public interface Set extends Iterable, Element{
 	
 	// Returns the number of elements in this set (its cardinality).
 	public int  size();
