@@ -21,7 +21,14 @@ public class SetAsLinkedList implements Set {
 	public int size(){
 		return data.size();
 	}
-
+	
+	public boolean add(Object element){
+		if(!contains(element)){
+			data.add(element);
+			return true;
+		}
+		return false;
+	}
 	
 	public boolean contains(Object element){ 
 		return data.contains(element);
@@ -54,71 +61,78 @@ public class SetAsLinkedList implements Set {
 
     	return true;	
 	}
-
+	@Override
 	public Set insert(Element e) {
-		// TODO Auto-generated method stub
-		return null;
+		if(!contains(e))
+			data.add(e);
+		return this;
 	}
 
+	@Override
 	public boolean contains(Set s) {
+		for (Object obj : s)
+			if(!data.contains(obj))
+				return false;
+		return true;
+	}
+	
+	@Override
+	public Set remove(Element e) {
+		data.remove(e);
+		return this;
+	}
+	
+	@Override
+	public Set union(Set s) {
+		Set output = new SetAsLinkedList(s);
+		for(Object obj : data)
+			output.insert((Element)obj);
+		return output;
+	}
+	
+	@Override
+	public Set intersect(Set s) {
+		Set output = new SetAsLinkedList();
+		for(Object e: data)
+			if(s.member((Element)e))
+				output.insert((Element)e);
+		return output;
+	}
+	
+	@Override
+	public Set power() {
+		return power(new SetAsLinkedList(this));
+	}
+	
+	// aid method
+	public Set power(Set s) {
+		Set output = new SetAsLinkedList();
+		if (s.size() == 0)
+			return output;
+		output.insert(s);
+		output.insert(power(s.remove((Element)data.get(0))));
+		return output;
+	}
+	
+	@Override
+	public boolean member(Element e) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	public Set remove(Element e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Set union(Set s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Set intersect(Set s) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Set power() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public boolean member(Element e) {
-		return data.contains(e);
-	}
-
+	@Override
 	public boolean deepExistence(Element e) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	@Override
 	public Set transformAdd(Numeric n) {
-		Iterator iterator = data.iterator();
-		while(iterator.hasNext()) {
-		Element element = (Element) iterator.next();
-		element.transformAdd(n);
+		// TODO Auto-generated method stub
+		return null;
 	}
-		return this;
-}
+	@Override
 	public Set transformMul(Numeric n) {
-		Iterator iterator = data.iterator();
-		while(iterator.hasNext()) {
-			Element element = (Element) iterator.next();
-			element.transformMul(n);
-		}
-		return this;
-	}
-
-	public String toString(){
-		String output = "{";
-		Iterator iterator =this.iterator();
-		while (iterator.hasNext()){
-			output = output+iterator.next().toString() + " , ";
-		}
-		output = output + "}";
-		return output;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
