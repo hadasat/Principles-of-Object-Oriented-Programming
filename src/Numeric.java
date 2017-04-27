@@ -3,7 +3,7 @@ public class Numeric implements Element{
 
 	private int number;
 
-	public void Numeric(int x){
+	public Numeric(int x){
 		number = x;
 	}
 
@@ -14,11 +14,18 @@ public class Numeric implements Element{
 	public void setNumber(int x){
 		number = x;
 	}
-	public Numeric transformAdd(Numeric n){
-		return null;
+
+	public Numeric transformAdd(Numeric n)
+	{
+		int x = n.getNumber()+ getNumber();
+		Numeric output = new Numeric(x);
+		  return output;
+
 	}
 	
 	public Numeric transformMul(Numeric n){
-		return null;
+		int x = n.getNumber() * getNumber();
+		Numeric output = new Numeric(x);
+		return output;
 	}
 }
