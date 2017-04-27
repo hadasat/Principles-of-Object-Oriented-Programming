@@ -21,14 +21,7 @@ public class SetAsLinkedList implements Set {
 	public int size(){
 		return data.size();
 	}
-	
-	public boolean add(Object element){
-		if(!contains(element)){
-			data.add(element);
-			return true;
-		}
-		return false;
-	}
+
 	
 	public boolean contains(Object element){ 
 		return data.contains(element);
@@ -61,55 +54,71 @@ public class SetAsLinkedList implements Set {
 
     	return true;	
 	}
-	@Override
+
 	public Set insert(Element e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public boolean contains(Set s) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
+
 	public Set remove(Element e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public Set union(Set s) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public Set intersect(Set s) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public Set power() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public boolean member(Element e) {
-		// TODO Auto-generated method stub
-		return false;
+		return data.contains(e);
 	}
-	@Override
+
 	public boolean deepExistence(Element e) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
+
 	public Set transformAdd(Numeric n) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator iterator = data.iterator();
+		while(iterator.hasNext()) {
+		Element element = (Element) iterator.next();
+		element.transformAdd(n);
 	}
-	@Override
+		return this;
+}
 	public Set transformMul(Numeric n) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator iterator = data.iterator();
+		while(iterator.hasNext()) {
+			Element element = (Element) iterator.next();
+			element.transformMul(n);
+		}
+		return this;
+	}
+
+	public String toString(){
+		String output = "{";
+		Iterator iterator =this.iterator();
+		while (iterator.hasNext()){
+			output = output+iterator.next().toString() + " , ";
+		}
+		output = output + "}";
+		return output;
 	}
 
 
