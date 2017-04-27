@@ -99,7 +99,15 @@ public class SetAsLinkedList implements Set {
 	}
 
 	public boolean deepExistence(Element e) {
-		// TODO Auto-generated method stub
+		Iterator iterator = this.iterator();
+		while (iterator.hasNext()){
+			Element element =(Element)iterator.next();
+			if(element instanceof Set)
+				if(deepExistence(e))
+					return true;
+			if(element.equals(e))
+				return true;
+		}
 		return false;
 	}
 
