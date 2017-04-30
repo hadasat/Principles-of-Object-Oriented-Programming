@@ -9,6 +9,7 @@ public class SetAsLinkedList implements Set {
 	public SetAsLinkedList() {
 		 data = new LinkedList();
 	}
+
 	public SetAsLinkedList(Set other) {
 		this();
 		Iterator myIterator = other.iterator();

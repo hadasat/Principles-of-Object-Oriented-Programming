@@ -7,4 +7,8 @@ public interface Numeric extends Element{
 
 	public Numeric transformMul(Numeric n);
 
+	public boolean equals(Numeric other);
+
+	public String toString();
+
 }

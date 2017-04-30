@@ -14,6 +14,13 @@ public class Real implements Numeric{
     public void setNumber(double x){
         number = x;
     }
+
+    public String toString(){return getNumber() + "";}
+
+    public boolean equals(Numeric other){
+        return (getNumber() == other.getNumber());
+    }
+
     public Numeric transformAdd(Numeric n){
         double x = n.getNumber() + getNumber();
         return new Real(x);
@@ -23,6 +30,8 @@ public class Real implements Numeric{
         double x = n.getNumber() * getNumber();
         return new Real(x);
     }
+
+
 
 
 }
