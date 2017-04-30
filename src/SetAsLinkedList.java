@@ -49,7 +49,7 @@ public class SetAsLinkedList implements Set {
 	public boolean equals(Object other) {
     	
     	if (!(other instanceof Set)) 
-		return false;
+			return false;
 
     	Set otherSet = (Set) other;
     	if (size() != otherSet.size())
