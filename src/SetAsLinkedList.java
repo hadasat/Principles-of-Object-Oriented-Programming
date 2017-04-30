@@ -22,48 +22,27 @@ public class SetAsLinkedList implements Set {
 		return data.size();
 	}
 	
-	public boolean add(Object element){
-		if(!contains(element)){
-			data.add(element);
-			return true;
-		}
-		return false;
-	}
-	
-	public boolean contains(Object element){ 
-		return data.contains(element);
-	} 
-	
-	public boolean remove(Object element){
-		return data.remove(element);
-	}
-	
-	public boolean isEmpty(){ 
-		return data.isEmpty();
-	}
-	
 	public Iterator iterator(){
 		return data.iterator();
 	}
 	
 	public boolean equals(Object other) {
-    	
     	if (!(other instanceof Set)) 
-			return false;
-
+    		return false;
+    	
     	Set otherSet = (Set) other;
     	if (size() != otherSet.size())
     		return false;
 
-    	for(Object element : otherSet)
-    		if (!contains(element))
+    	for(Object obj : otherSet)
+    		if (!member((Element)obj))
     			return false;
-
     	return true;	
 	}
+	
 	@Override
 	public Set insert(Element e) {
-		if(!contains(e))
+		if (!member(e))
 			data.add(e);
 		return this;
 	}
@@ -71,7 +50,7 @@ public class SetAsLinkedList implements Set {
 	@Override
 	public boolean contains(Set s) {
 		for (Object obj : s)
-			if(!data.contains(obj))
+			if (!member((Element)obj))
 				return false;
 		return true;
 	}
@@ -85,17 +64,18 @@ public class SetAsLinkedList implements Set {
 	@Override
 	public Set union(Set s) {
 		Set output = new SetAsLinkedList(s);
-		for(Object obj : data)
-			output.insert((Element)obj);
+		for(Object obj : this)
+			if (!output.member((Element)(obj)))
+					output.insert((Element)obj);
 		return output;
 	}
 	
 	@Override
 	public Set intersect(Set s) {
 		Set output = new SetAsLinkedList();
-		for(Object e: data)
-			if(s.member((Element)e))
-				output.insert((Element)e);
+		for(Object obj: data)
+			if(s.member((Element)obj))
+				output.insert((Element)obj);
 		return output;
 	}
 	
@@ -113,13 +93,11 @@ public class SetAsLinkedList implements Set {
 		output.insert(power(s.remove((Element)data.get(0))));
 		return output;
 	}
-	
-	@Override
+
 	public boolean member(Element e) {
-		// TODO Auto-generated method stub
-		return false;
+		return data.contains(e);
 	}
-	@Override
+
 	public boolean deepExistence(Element e) {
 		Iterator iterator = this.iterator();
 		while (iterator.hasNext()){
@@ -133,16 +111,30 @@ public class SetAsLinkedList implements Set {
 		return false;
 	}
 
-	@Override
 	public Set transformAdd(Numeric n) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator iterator = data.iterator();
+		while(iterator.hasNext()) {
+		Element element = (Element) iterator.next();
+		element.transformAdd(n);
 	}
-	@Override
+		return this;
+}
 	public Set transformMul(Numeric n) {
-		// TODO Auto-generated method stub
-		return null;
+		Iterator iterator = data.iterator();
+		while(iterator.hasNext()) {
+			Element element = (Element) iterator.next();
+			element.transformMul(n);
+		}
+		return this;
 	}
 
-
+	public String toString(){
+		String output = "{";
+		Iterator iterator =this.iterator();
+		while (iterator.hasNext()){
+			output = output+iterator.next().toString() + " , ";
+		}
+		output = output + "}";
+		return output;
+	}
 }
